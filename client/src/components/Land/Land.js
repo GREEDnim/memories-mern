@@ -1,11 +1,10 @@
 import React from 'react'
-
-function Auth() {
+function Land() {
   return (
     <div>
-      
+  
     </div>
   )
 }
 
-export default Auth
+export default Land;
