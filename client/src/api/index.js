@@ -1,28 +1,32 @@
 import axios from 'axios';
-const url='http://localhost:5000/posts';
 
-export const fetchPosts=()=>
-{
-    // console.log("api to fetch called");
-    return axios.get(url);
+const API=axios.create({baseURL:'http://localhost:5000'});
+
+API.interceptors.request.use((req)=>{
+
+    if(localStorage.getItem('profile')!==null)
+    {
+        req.headers.user=localStorage.getItem('profile');
+    }
+  
+    return req;
+})
+
+export const fetchPosts=()=>{
+    return API.get('/posts');
 }
-export const createPosts=(newPosts)=>
-{
-    // console.log(newPosts+"  "+"shittt");
-
-    return axios.post(url,newPosts);
+export const createPosts=(newPosts)=>{
+    return API.post('/posts',newPosts);
 }
 
-export const updatePost=(id,updatedPost)=>
-{
-
-    return axios.patch(`${url}/${id}`,updatedPost);
+export const updatePost=(id,updatedPost)=>{
+    return API.patch(`/posts/${id}`,updatedPost);
 }
 export const deletePost=(id)=>{
-    return axios.delete(`${url}/${id}`);
+    return API.delete(`/posts/${id}`);
 }
 
 export const likePost=(id)=>{
-    return axios.patch(`${url}/${id}/likePost`,likePost);
+    return API.patch(`/posts/${id}/likePost`,likePost);
 }
 

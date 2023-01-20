@@ -26,7 +26,7 @@ export async function createPost(req,res)
     // console.log(req);
     // we are getting the content to be made as a post and converting it into a mongoose object so that we can save it in db
     const post=req.body;
-    const newPost= new PostMessage(post);
+    const newPost= new PostMessage({...post,creator:req.userId , createdAt:new Date().toISOString()});
 
     try {
             // this is similar to insert in mongodb
@@ -63,11 +63,26 @@ export async function deletePost(req,res)
 export async function likePost(req,res)
 {
     const {id:_id}=req.params;
+
+    if(!req.userId) res.json('unauthenticated');
     const post=await PostMessage.findById(_id);
     
     // console.log(post.createdAt);
     if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send("No posts with that id");
+
+    let index=post.likes.findIndex( (id)=>req.userId===id);
+    // console.log(index);
+    if(index==-1)
+    {
+        post.likes.push(req.userId);
+    }
+    else
+    {
+        post.likes=post.likes.filter( (id)=>req.userId!==id);
+    }
+    // console.log(post.likes);
     
-    const updatedPost=await PostMessage.findByIdAndUpdate(_id,{likeCount:post.likeCount+1},{new:true});
+    const updatedPost=await PostMessage.findByIdAndUpdate(_id,post,{new:true});
+
     res.json(updatedPost);
 }

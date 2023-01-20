@@ -12,7 +12,6 @@ function Home()
   const dispatch=useDispatch();
   const [currentId,setCurrentId]=useState(null);
     useEffect(()=>{
-      // console.log("first time");
        dispatch(getPosts());
     },[dispatch])
   

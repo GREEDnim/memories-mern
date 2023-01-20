@@ -24,7 +24,7 @@ export const getPosts=()=>async(dispatch)=>{
         dispatch(action)
 
     } catch (error) {
-        console.log(error.message)
+        console.log(error)
     }
     
 
@@ -69,6 +69,6 @@ export const likePost=(id)=>async(dispatch)=>{
 
        dispatch({type:UPDATE,payload:data});
     } catch (error) {
-        console.log(error.message);
+        console.log(error);
     }
 }

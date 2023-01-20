@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 
-function Login() {
+function Login({setUser}) {
   const dispatch=useDispatch();
   const navigate=useNavigate();
   function successHandler(res)
@@ -18,7 +18,9 @@ function Login() {
     const decoded=jwt_decode(res.credential);
     // console.log(decoded);
     dispatch(setGoogleUser(decoded));
-    navigate("/home")
+    setUser(JSON.parse(localStorage.getItem('profile')));
+    // navigate('/home');
+    
   }
   function failureHandler(error)
   {

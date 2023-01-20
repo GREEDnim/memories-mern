@@ -36,7 +36,7 @@ const classes={
     },
     profile: {
       display: 'flex',
-      justifyContent: 'space-between',
+      justifyContent: 'space-evenly',
       width: '400px',
       alignItems: 'center',
       [theme.breakpoints.down('sm')]: {
