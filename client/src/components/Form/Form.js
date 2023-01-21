@@ -10,12 +10,12 @@ import { createPost,updatePost } from "../../actions/posts";
 
 function Form({currentId,setCurrentId})
 {
-    console.log("form");
+    // console.log("form");
     const dispatch=useDispatch();
     const [postData,setPostData]=useState({
         title:'',message:'',tags:'',selectedFile:''});
     
-    const post=useSelector((state)=>currentId?state.posts.find( (post)=>post._id===currentId ):null);
+    const post=useSelector((state)=>currentId?state.data.posts.find( (post)=>post._id===currentId ):null);
     const user=JSON.parse(localStorage.getItem('profile'));
     
     useEffect( ()=>{

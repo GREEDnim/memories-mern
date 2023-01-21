@@ -18,7 +18,7 @@ function Logout({setUser}) {
     googleLogout();
     dispatch(removeGoogleUser());
     setUser(null);
-    // navigate('/');
+     navigate('/');
   }
   return (
     <Button  varient='contained' color="primary" size="large" type="submit"  style={{backgroundColor:"#f01111",padding:'10px 30px',color:'white'}}  onClick={logout}>LOGOUT</Button>

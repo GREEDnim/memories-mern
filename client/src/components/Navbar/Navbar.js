@@ -8,7 +8,7 @@ import Login from "../LogIn/Login";
 import Logout from "../Logout/Logout";
 function Navbar() {
 
-    console.log("navbar");
+    // console.log("navbar");
     const [user,setUser]=useState( JSON.parse(localStorage.getItem('profile')) );
     return (
         <AppBar position="static" color="inherit" sx={classes.appBar}>

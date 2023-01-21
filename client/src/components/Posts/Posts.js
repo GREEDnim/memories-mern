@@ -6,11 +6,11 @@ import {mainContainer,smMargin,actionDiv} from './Postscss';
 import {Grid, CircularProgress} from '@mui/material';
 function Posts({setCurrentId})
 {
-    const posts=useSelector((state)=>state.posts);
-    // console.log(posts);
-    // console.log("re");
-    
-        if(!posts.length)
+    const {posts}=useSelector((state)=>{
+        // console.log(state);    
+        return state.posts;
+    });    
+        if(!posts?.length)
         {
             
             return <CircularProgress></CircularProgress>
@@ -20,7 +20,7 @@ function Posts({setCurrentId})
                 <Grid style={mainContainer} container alignItems='stretch' spacing={3}>
                     {
                         posts.map((post)=>{ return(
-                            <Grid item  key={post._id} xs={12} sm={6}>
+                            <Grid item  key={post._id} xs={12} sm={12} md={6} lg={3}>
                                 <Post post={post}  setCurrentId={setCurrentId} ></Post>
                             </Grid>
                         )

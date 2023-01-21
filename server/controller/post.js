@@ -4,22 +4,34 @@ import PostMessage from "../models/postMessage.js";
 export async function getPosts (req,res)
 {
     try {
-        //we are fetching all the message from database
-        //postMessages=PostMessage.find();
-        // but fetching data from db takes time, so we should make it asynchronous
-        // so we'll make this function async by adding async keyword before function name getPosts(req,res) to async getPosts(req,res)
-        //and await before PostMessage.find()
-        
-        //normal find in mongodb done using mongoose
-        const postMessages= await PostMessage.find();
+        const {page}=req.query;
+
+        const LIMIT=8;
+        const startIndex=(+page -1 )*LIMIT;
+        const total=await PostMessage.countDocuments();
+        const posts= await PostMessage.find().sort({_id:-1}).limit(LIMIT).skip(startIndex);
+
 
         // if this works , return the result as a json and also a status of 200 in response
         res.status(200);
-        res.json(postMessages);
+        res.json({data:posts,currentPage:Number(page),numberOfPages:Math.ceil(total/LIMIT)});
 
     } catch (error) {
         res.status(404).json({message:error.message});
     }
+}
+
+export async function getPostsBySearch(req,res)
+{
+    // console.log(req.query);
+    try {
+    const {searchQuery,tags}=req.query;
+    const title=new RegExp(searchQuery,'i');  
+    const posts = await PostMessage.find({ $or: [ { title }, { tags: { $in: tags.split(',') } } ]} );
+     res.json(posts); 
+    } catch (error) {
+        res.status(404).json({message:error.message});
+    }  
 }
 export async function createPost(req,res)
 {

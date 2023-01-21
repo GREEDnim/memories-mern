@@ -1,6 +1,6 @@
 
 import * as api from '../api';
-import {CREATE,UPDATE,DELETE,FETCH_ALL} from '../constants/ActionTypes'
+import {CREATE,UPDATE,DELETE,FETCH_ALL,FETCH_BY_SEARCH} from '../constants/ActionTypes'
 //action creators
 
 // this is what an actioncreator should look like .
@@ -13,12 +13,11 @@ import {CREATE,UPDATE,DELETE,FETCH_ALL} from '../constants/ActionTypes'
 // so we have to make it async and awaited. this is achieved using thunks.
 //     instead of returning an action we'll call the dispatch.
 
-export const getPosts=()=>async(dispatch)=>{
+export const getPosts=(page)=>async(dispatch)=>{
     try {
         //   console.log("in action")
-        const response=await api.fetchPosts();
-        // console.log(response);
-        //the data fetched using axios are in data property
+        const response=await api.fetchPosts(page);
+        // console.log(response.data);
         const action={type:FETCH_ALL,payload:response.data};
         // console.log("fetcheda");
         dispatch(action)
@@ -28,6 +27,18 @@ export const getPosts=()=>async(dispatch)=>{
     }
     
 
+}
+
+export const getPostsBySearch=(searchQuery)=>async(dispatch)=>{
+    try {
+
+        const {data} = await api.fetchPostsBySearch(searchQuery);
+        // console.log(data);
+        const action={type:FETCH_BY_SEARCH,payload:data};
+        dispatch(action);
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 export const createPost=(post)=>async(dispatch)=>{

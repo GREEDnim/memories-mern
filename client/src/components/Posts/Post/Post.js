@@ -9,7 +9,7 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
 import moment from 'moment';
 import {useDispatch} from 'react-redux';
 import { deletePost, likePost } from "../../../actions/posts";
-import ThumbUpOffAlt from "@mui/icons-material/ThumbUpOffAlt";
+
 
 
 
@@ -21,8 +21,8 @@ function Post({post,setCurrentId})
     // console.log(post);
 
     const user = JSON.parse(localStorage.getItem('profile'));
-    console.log(user);;
-    console.log(post);
+    // console.log(user);;
+    // console.log(post);
     const Likes = () => {
       if (post.likes.length > 0) {
        
