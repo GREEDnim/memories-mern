@@ -15,12 +15,16 @@ function Form({currentId,setCurrentId})
     const [postData,setPostData]=useState({
         title:'',message:'',tags:'',selectedFile:''});
     
-    const post=useSelector((state)=>currentId?state.data.posts.find( (post)=>post._id===currentId ):null);
+    const post=useSelector((state)=>
+    {
+        console.log(state);
+        return currentId?state.posts.posts.find( (post)=>post._id===currentId ):null
+    });
     const user=JSON.parse(localStorage.getItem('profile'));
     
     useEffect( ()=>{
             if(post)  setPostData(post);
-    } ,[post]);
+    } ,[currentId,post]);
 
     const handleSubmit=(e)=>{
         e.preventDefault();

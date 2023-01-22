@@ -19,7 +19,7 @@ function Login({setUser}) {
     // console.log(decoded);
     dispatch(setGoogleUser(decoded));
     setUser(JSON.parse(localStorage.getItem('profile')));
-     navigate('/home');
+     navigate('/');
     
   }
   function failureHandler(error)

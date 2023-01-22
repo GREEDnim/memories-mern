@@ -15,7 +15,7 @@ const classes=
           padding: '16px',
         },
         gridContainer: {
-          [theme.breakpoints.down('xs')]: {
+          [theme.breakpoints.down('sm')]: {
             flexDirection: 'column-reverse',
           },
         },
